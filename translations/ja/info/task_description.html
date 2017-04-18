@@ -1,0 +1,111 @@
+<div class="for_info_only" style="text-align: center">
+    <img src="{{MEDIA}}title.png" style="max-height: 350px">
+</div>
+<p>
+    大きい数は見やすくしたいので、そういうコードを書いてみましょう。
+</p>
+
+<p>
+    いくつかのルールに基づいて<strong>number</strong>を文字列に変換する関数を書いてください。
+    
+    まずは与えられた(<strong>base</strong> 引数; デフォルトは 1000)で割ります。
+    商の値は小数で、小数点以下の桁数は (<strong>decimals</strong> 引数; デフォルトは 0)です。
+    decimal = 0ならば、(5.6⇒5, -5.6⇒-5)のように値を原点方向に丸めます,
+    それ以外は値を四捨五入します。
+    decimalsが小数点以下の桁数より大きい場合は、ゼロをつなげてください。
+    桁を表すアルファベットを付けて数を表します。
+    桁を表すアルファベットのリストは(<strong>powers</strong> 引数; デフォルト ['', 'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y']).
+    接尾辞として (<strong>suffix</strong> 引数; デフォルトは ‘’)が与えられたら、その接尾辞を後ろに付けてください。
+    powersが不足している場合は、与えられたpowerのうち最大のものを使います。
+    値がゼロのときは桁を表すアルファベットは付けませんが、接尾辞は付けます。
+</p>
+
+<p>
+    例を見るとわかりやすいです。
+</p>
+
+<ul>
+    <li>
+        n=102<br>
+        結果: "102", baseはデフォルトの1000で、102はそれよりも小さいです。
+    </li>
+    <li>
+        n=10240<br>
+        結果: "10k", baseはデフォルトの1000で、値は丸めます。
+    </li>
+    <li>
+        n=12341234, decimals=1<br>
+        結果: "12.3M", 小数点以下が1桁です。
+    </li>
+    <li>
+        n=12000000, decimals=3<br>
+        結果: "12.000M", ゼロがつながります。
+    </li>
+    <li>
+        n=12461, decimals=1<br>
+        結果: "12.5k", 四捨五入です。
+    </li>
+    <li>
+        n=1024000000, base=1024, suffix='iB'<br>
+        結果: '976MiB', baseがデフォルトの1000とは異なり、suffixも与えられています。
+    </li>
+    <li>
+        n=-150, base=100, powers=['', 'd', 'D']<br>
+        結果: '-1d', 負の数が与えられ、原点方向に丸めます。
+    </li>
+    <li>
+        n=-155, base=100, decimals=1, powers=['', 'd', 'D']<br>
+        結果: '-1.6d', 負の数が与えられ、四捨五入をします。
+    </li>
+    <li>
+        n=255000000000, powers=['', 'k', 'M']<br>
+        結果: '255000M', 充分なpowersが与えられていません。
+    </li>
+
+</ul>
+
+<p>
+    <strong>入力: </strong> 整数値。 キーワード引数「base」も整数で、デフォルトは1000。
+    キーワード引数「decimals」は整数で、デフォルトは0。
+    キーワード引数「powers」は文字列のリストで、デフォルトは['', 'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y']。
+</p>
+
+<p>
+    <strong>出力: </strong> 文字列型に変換した数字
+</p>
+
+<div class="for_info_only">
+    <p>
+        <strong>例:</strong>
+    </p>
+    <pre class="brush: python">{% if interpreter.slug == "js-node" %}
+friendlyNumber(102) == '102'
+friendlyNumber(10240) == '10k'
+friendlyNumber(12341234, {decimals: 1}) == '12.3M'
+friendlyNumber(12000000, {decimals: 3}) == '12.000M'
+friendlyNumber(12461, {decimals: 1}) == '12.5k'
+friendlyNumber(1024000000, {base: 1024, suffix: 'iB'}) == '976MiB'
+{% else %}
+friendly_number(102) == '102'
+friendly_number(10240) == '10k'
+friendly_number(12341234, decimals=1) == '12.3M'
+friendly_number(12000000, decimals=3) == '12.000M'
+friendly_number(12461, decimals=1) == '12.5k'
+friendly_number(1024000000, base=1024, suffix='iB') == '976MiB'
+{% endif %}</pre>
+
+    
+</div>
+
+
+<p>
+    <strong>応用例:</strong>物理学やＩＴの世界では様々な数を扱います。
+    単純で読みやすい数字で表したほうがよい場合があります。ギガバイトについて扱う時にはバイトやキロバイトについては正確に表す必要がないこともあります。
+
+</p>
+<p>
+    <strong>条件:</strong> 1 &lt; base &le; 10<sup>32</sup><br>
+    -10<sup>32</sup> &lt; number &le; 10<sup>32</sup><br>
+    0 &le; decimals &le; 15<br>
+0
+</p>
